@@ -417,7 +417,7 @@ define(function (require, exports, module) {
                 // We found no good match
                 if (i === -1) {
                     // traverse the directory tree up one level
-                    containingFolder = FileUtils.getDirectoryPath(FileUtils.stripTrailingSlash(containingFolder));
+                    containingFolder = FileUtils.getParentDirectory(containingFolder);
                     // Are we still inside the project?
                     if (containingFolder.indexOf(projectRoot) === -1) {
                         stillInProjectTree = false;

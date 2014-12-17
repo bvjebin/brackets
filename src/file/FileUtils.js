@@ -453,8 +453,22 @@ define(function (require, exports, module) {
     }
 
     /**
-     * Get the file name without the extension.
-     * @param {string} filename File name of a file or directory
+     * Get the parent folder of the given file/folder path. (Note: if you already have a FileSystemEntry,
+     * it's faster to use entry.parentPath instead). Differs from getDirectoryPath() in the case that 'path'
+     * is a directory itself: returns its parent instead of the original path.
+     * @param {string} path full path to a file or directory
+     * @return {string} Path of containing folder, or "" if path was the root
+     */
+    function getParentDirectory(path) {
+        if (path === "/") {
+            return "";
+        }
+        return path.substring(0, path.lastIndexOf("/", path.length - 2) + 1);
+    }
+
+    /**
+     * Get the file name without the extension. Returns "" if name starts with "."
+     * @param {string} filename File name of a file or directory, without preceding path
      * @return {string} Returns the file name without the extension
      */
     function getFilenameWithoutExtension(filename) {
@@ -559,6 +573,7 @@ define(function (require, exports, module) {
     exports.isStaticHtmlFileExt            = isStaticHtmlFileExt;
     exports.isServerHtmlFileExt            = isServerHtmlFileExt;
     exports.getDirectoryPath               = getDirectoryPath;
+    exports.getParentDirectory             = getParentDirectory;
     exports.getBaseName                    = getBaseName;
     exports.getRelativeFilename            = getRelativeFilename;
     exports.getFilenameWithoutExtension    = getFilenameWithoutExtension;
